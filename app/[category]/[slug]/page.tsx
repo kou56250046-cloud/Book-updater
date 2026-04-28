@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getArticle, getAllCategories, getArticlesByCategory } from "@/lib/content";
 import { CATEGORY_LABELS } from "@/lib/constants";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 
 interface Props {
   params: Promise<{ category: string; slug: string }>;
@@ -26,7 +27,7 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="mb-8">
+      <FadeIn>
         <Link
           href={`/?category=${category}`}
           className="text-sm text-indigo-600 hover:underline mb-4 inline-block"
@@ -54,17 +55,19 @@ export default async function ArticlePage({ params }: Props) {
             </ul>
           </div>
         )}
-      </div>
+      </FadeIn>
 
-      <article className="prose prose-gray max-w-none">
-        <MDXRemote source={article.content} />
-      </article>
+      <FadeIn delay={0.15}>
+        <article className="prose prose-gray max-w-none mt-8">
+          <MDXRemote source={article.content} />
+        </article>
+      </FadeIn>
 
-      <div className="mt-12 pt-6 border-t border-gray-200">
+      <FadeIn delay={0.25} className="mt-12 pt-6 border-t border-gray-200">
         <Link href="/" className="text-sm text-gray-500 hover:text-gray-900">
           ← 一覧に戻る
         </Link>
-      </div>
+      </FadeIn>
     </div>
   );
 }
